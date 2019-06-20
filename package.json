@@ -1,6 +1,6 @@
 {
   "name": "@qneyraud/q-image",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./dist/QImage.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
