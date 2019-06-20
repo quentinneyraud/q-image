@@ -1,10 +1,11 @@
 {
-  "name": "q-image",
+  "name": "@qneyraud/q-image",
   "version": "0.1.0",
-  "private": true,
+  "main": "./dist/QImage.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-bundle": "vue-cli-service build --target lib --name QImage ./src/components/QImage.vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
