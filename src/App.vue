@@ -11,13 +11,23 @@ import QImage from './components/QImage.vue'
 
 export default {
   name: 'app',
+  components: {
+    QImage
+  },
   data () {
     return {
       image: {
+        // alternative text
         alt: 'Une image d\'illustration',
+        // default image source
         src: require('./images/landscape.jpg'),
+        // background color. You will see it before lazyloading or if placement is 'contain'
         color: 'red',
+        // object-fit css rule
         placement: 'cover',
+        // object-position css rule
+        position: 'center center',
+        // List of jpg files with their width
         jpg: [{
           source: require('./images/landscape_650.jpg'),
           width: 650
@@ -28,12 +38,14 @@ export default {
           source: require('./images/landscape_1400.jpg'),
           width: 1400
         }],
-        sizes: '(min-width: 1200px) 75vw, 100vw'
+        // List of jpg files with their width
+        webp: null,
+        // img src-set sizes attribute
+        sizes: '(min-width: 1200px) 75vw, 100vw',
+        //
+        lazyload: false
       }
     }
-  },
-  components: {
-    QImage
   }
 }
 </script>

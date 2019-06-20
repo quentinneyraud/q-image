@@ -2,8 +2,8 @@
   <div
     class="q-image"
     :class="{
-      loading: lazyload,
-      loaded: !lazyload
+      loading: useLazyload,
+      loaded: !useLazyload
     }"
     :style="{ backgroundColor: color }">
 
@@ -13,19 +13,19 @@
       <source
         v-if="jpg"
         type="image/jpg"
-        :data-srcset="lazyload && jpgSrcSet"
-        :srcset="!lazyload && jpgSrcSet"
+        :data-srcset="useLazyload && jpgSrcSet"
+        :srcset="!useLazyload && jpgSrcSet"
         :sizes="sizes">
       <source
         v-if="webp"
         type="image/webp"
-        :data-srcset="lazyload && webpSrcSet"
-        :srcset="!lazyload && webpSrcSet"
+        :data-srcset="useLazyload && webpSrcSet"
+        :srcset="!useLazyload && webpSrcSet"
         :sizes="sizes">
       <img
         ref="baseimage"
-        :data-src="lazyload && src"
-        :src="!lazyload && src"
+        :data-src="useLazyload && src"
+        :src="!useLazyload && src"
         :alt="alt"
         :style="{
           objectFit: placement,
@@ -36,8 +36,6 @@
 </template>
 
 <script>
-// utils
-import { isMinLength } from '../validators.js'
 
 export default {
   props: {
@@ -46,7 +44,7 @@ export default {
       type: String,
       required: true,
       default: 'Image non disponible',
-      validator: value => isMinLength(value, 5)
+      validator: value => value.length > 0
     },
     src: {
       type: String,
@@ -85,17 +83,11 @@ export default {
       required: false,
       default: 'none'
     },
-    // lazyload props
     lazyload: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    lazyloadType: {
       type: String,
       required: false,
-      default: 'direct',
-      validator: (value) => ['direct', 'intersection', 'called'].indexOf(value) > -1
+      default: 'none',
+      validator: (value) => ['none', 'direct', 'intersection', 'called'].indexOf(value) > -1
     }
   },
   data () {
@@ -115,10 +107,13 @@ export default {
       return this.webp
         .map(webpSource => `${webpSource.source} ${webpSource.width}w`)
         .join(', ')
+    },
+    useLazyload () {
+      return this.lazyload !== 'none'
     }
   },
   mounted () {
-    if (this.lazyload && this.lazyloadType === 'direct') {
+    if (this.lazyload === 'direct') {
       this.lazyloadImage()
     }
 
