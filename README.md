@@ -21,18 +21,19 @@ yarn install @qneyraud/q-image
 | position  | String | no       | "center center" | `object-position` css rule                                                                                                                                                              |
 | color     | String | no       | null            | Component background color. You will see it before image lazyloading or if placement is 'contain'                                                                                       |
 | lazyload  | String | no       | "none"          | `none` to disable lazyloading <br> `direct` to lazyload image after page load <br> `called` to wait for a `lazyloadImage()` method call <br> `intersection` to use IntersectionObserver |
+| threshold | Number | no       | 0.0             | IntersectionObserver threshold                                                                                                                                                          |
 
 #### Methods
 
-| name          | return | description      |
-| ------------- | ------ | ---------------- |
+| name          | return | description                 |
+| ------------- | ------ | --------------------------- |
 | lazyloadImage | void   | Start lazyloading the image |
 
 #### Events
 
-| name          | parameters | description      |
-| ------------- | ------ | ---------------- |
-| loaded | reference to the component   | Emitted when the image is loaded |
+| name   | parameters                 | description                      |
+| ------ | -------------------------- | -------------------------------- |
+| loaded | reference to the component | Emitted when the image is loaded |
 
 
 ## Development
