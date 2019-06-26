@@ -13,7 +13,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "build-bundle": "vue-cli-service build --target lib --name QImage ./src/components/QImage.vue",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "prepublish": "npm run build-bundle"
   },
   "dependencies": {
     "core-js": "^2.6.5",
