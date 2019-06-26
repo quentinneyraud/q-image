@@ -43,7 +43,7 @@ export default {
         // img src-set sizes attribute
         sizes: '(min-width: 1200px) 75vw, 100vw',
         //
-        lazyload: false
+        lazyload: 'intersection'
       }
     }
   }
@@ -58,12 +58,14 @@ export default {
 
 <style lang="stylus" scoped>
 .app-image
-  width: 100vw;
-  height: 500px;
+  width 100vw
+  height 500px
+  margin-top 4000px
 
   @media screen and (min-width: 1200px) {
     display block
     margin 0 auto
+    margin-top 4000px
     width 75vw
   }
 </style>

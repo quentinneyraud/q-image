@@ -36,7 +36,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     // basic props
@@ -64,7 +63,7 @@ export default {
     sizes: {
       type: String,
       required: false,
-      default: null
+      default: '100vw'
     },
     // style props
     placement: {
@@ -88,6 +87,11 @@ export default {
       required: false,
       default: 'none',
       validator: (value) => ['none', 'direct', 'intersection', 'called'].indexOf(value) > -1
+    },
+    threshold: {
+      type: Number,
+      required: false,
+      default: 0.0
     }
   },
   data () {
@@ -115,12 +119,14 @@ export default {
   mounted () {
     if (this.lazyload === 'direct') {
       this.lazyloadImage()
+    } else if (this.lazyload === 'intersection') {
+      this.setIntersectionObserver()
     }
 
     if (this.$refs.baseimage.src && this.$refs.baseimage.complete) {
       this.onLoaded()
     } else {
-      this.$refs.image.addEventListener('load', this.onLoaded)
+      this.$refs.baseimage.addEventListener('load', this.onLoaded)
     }
   },
   methods: {
@@ -131,13 +137,30 @@ export default {
         })
       this.$refs.baseimage.src = this.$refs.baseimage.dataset.src
     },
-    onIntersect () {
-      this.lazyloadImage()
-    },
     onLoaded () {
       this.$emit('loaded', this)
       this.loaded = true
       this.$el.classList.remove('loading')
+    },
+    // Intersection Observer
+    setIntersectionObserver () {
+      if (!this.supportIntersectionObserver()) {
+        console.warn('IntersectionObserver not supported, loading image now')
+        this.lazyloadImage()
+      }
+
+      let observer = new IntersectionObserver(intersections => {
+        if (intersections[0].isIntersecting) {
+          this.lazyloadImage()
+        }
+      }, {
+        threshold: this.threshold
+      })
+
+      observer.observe(this.$el)
+    },
+    supportIntersectionObserver () {
+      return 'IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype
     }
   }
 }
