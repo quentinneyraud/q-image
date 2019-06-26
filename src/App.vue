@@ -43,7 +43,8 @@ export default {
         // img src-set sizes attribute
         sizes: '(min-width: 1200px) 75vw, 100vw',
         //
-        lazyload: 'intersection'
+        lazyload: 'intersection',
+        threshold: 0.75
       }
     }
   }
@@ -60,12 +61,12 @@ export default {
 .app-image
   width 100vw
   height 500px
-  margin-top 4000px
+  margin-top 2000px
 
   @media screen and (min-width: 1200px) {
     display block
     margin 0 auto
-    margin-top 4000px
+    margin-top 2000px
     width 75vw
   }
 </style>
