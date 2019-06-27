@@ -20,7 +20,7 @@ export default {
         // alternative text
         alt: 'Une image d\'illustration',
         // default image source
-        src: require('./images/landscape.jpg'),
+        source: require('./images/landscape.jpg'),
         // background color. You will see it before lazyloading or if placement is 'contain'
         color: 'red',
         // object-fit css rule

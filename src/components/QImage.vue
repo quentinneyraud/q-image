@@ -24,8 +24,8 @@
         :sizes="sizes">
       <img
         ref="baseimage"
-        :data-src="useLazyload && src"
-        :src="!useLazyload && src"
+        :data-src="useLazyload && source"
+        :src="!useLazyload && source"
         :alt="alt"
         :style="{
           objectFit: placement,
@@ -45,7 +45,7 @@ export default {
       default: 'Image non disponible',
       validator: value => value.length > 0
     },
-    src: {
+    source: {
       type: String,
       required: true
     },
