@@ -166,27 +166,27 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-  .q-image
-    position relative
-    overflow hidden
-    transition opacity 0.3s
-
-    &.loading
-      opacity 0
-
-    &.loaded
-      opacity 1
-
-  .image
-    display inline-block
-    width 100%
-    height 100%
-
-
-  .image img
-    width 100%
-    height 100%
-    object-fit cover
-    user-select none
+<style scoped>
+  .q-image {
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.3s;
+  }
+  .q-image.loading {
+    opacity: 0;
+  }
+  .q-image.loaded {
+    opacity: 1;
+  }
+  .image {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  }
+  .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+  }
 </style>
