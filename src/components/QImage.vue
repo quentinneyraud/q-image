@@ -171,8 +171,6 @@ export default {
     position relative
     overflow hidden
     transition opacity 0.3s
-    width 100%
-    height 100%
 
     &.loading
       opacity 0
