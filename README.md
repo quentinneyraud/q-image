@@ -1,6 +1,6 @@
 # q-image
 
-> View [docs]()
+> View [docs](https://quentinneyraud.github.io/q-image/)
 
 
 ## Install
