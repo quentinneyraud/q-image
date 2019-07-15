@@ -138,7 +138,7 @@ export default {
       this.$refs.baseimage.src = this.$refs.baseimage.dataset.src
     },
     onLoaded () {
-      this.$emit('loaded', this)
+      this.$emit('loaded', this.$refs.image)
       this.loaded = true
       this.$el.classList.remove('loading')
     },
