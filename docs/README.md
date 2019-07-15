@@ -43,7 +43,14 @@ npm run serve
 npm run build-bundle
 ```
 
-
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
 # Options
 
@@ -262,7 +269,7 @@ npm run build-bundle
   threshold="0.5"/>
 ```
 
-## Image loaded by method
+## Image loaded by lazyloadImage method
 
 ```vue
 <template>
