@@ -4,7 +4,7 @@
   "main": "./dist/QImage.common.js",
   "files": [
     "dist/*",
-    "src/*",
+    "src/components/*",
     "public/*",
     "*.json",
     "*.js"
