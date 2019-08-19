@@ -42,8 +42,7 @@ export default {
     alt: {
       type: String,
       required: true,
-      default: 'Image non disponible',
-      validator: value => value.length > 0
+      default: 'Image non disponible'
     },
     source: {
       type: String,
@@ -82,6 +81,7 @@ export default {
       required: false,
       default: 'none'
     },
+    // lazyload
     lazyload: {
       type: String,
       required: false,
