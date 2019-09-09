@@ -1,5 +1,7 @@
 # Introduction
 
+Vue component for images using picture tag, srcset and lazyload
+
 ## Install
 
 ```bash
@@ -259,7 +261,7 @@ npm run build-bundle
 
 ## Image loaded on intersection
 
-> Start loading when half of the iamge is visible
+> Start loading when half of the image is visible
 
 ```vue
 <q-image 

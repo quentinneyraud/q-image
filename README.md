@@ -1,5 +1,7 @@
 # q-image
 
+Vue component for images using picture tag, srcset and lazyload
+
 > [Documentation](https://quentinneyraud.github.io/q-image/)
 
 
