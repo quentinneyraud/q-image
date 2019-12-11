@@ -45,14 +45,7 @@ npm run serve
 npm run build-bundle
 ```
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+<div style="margin-top:200px"></div>
 
 # Options
 
@@ -139,14 +132,7 @@ npm run build-bundle
 **Required**: false   
 **Default**: 0.0
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+<div style="margin-top:200px"></div>
 
 # Methods
 
@@ -154,14 +140,7 @@ npm run build-bundle
 
 > Start lazyloading the image
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+<div style="margin-top:200px"></div>
 
 # Events
 
@@ -171,14 +150,7 @@ npm run build-bundle
 
 **Parameter**: reference to the component
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+<div style="margin-top:200px"></div>
 
 # Examples
 
@@ -202,10 +174,11 @@ npm run build-bundle
 
 <style>
   .image 
-    transition: opacity 0.3s;
+    transition: all 0.3s;
+    opacity: 0;
 
   .image.loading
-    opacity: 0;
+    border: solid 1px grey;
 
   .image.loaded
     opacity: 1;
