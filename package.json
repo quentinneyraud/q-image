@@ -1,6 +1,6 @@
 {
   "name": "@qneyraud/q-image",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "main": "./dist/QImage.common.js",
   "files": [
     "dist/*",
