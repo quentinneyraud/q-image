@@ -1,60 +1,62 @@
 <template>
   <div id="app">
-    <q-image
-      class="app-image"
-      v-bind="image"/>
+    <q-image class="app-image" v-bind="image" />
   </div>
 </template>
 
 <script>
-import QImage from './components/QImage.vue'
+import QImage from "./components/QImage.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     QImage
   },
-  data () {
+  data() {
     return {
       image: {
         // alternative text
-        alt: 'Une image d\'illustration',
+        alt: "Une image d'illustration",
         // default image source
-        source: require('./images/landscape.jpg'),
+        source: require("./images/landscape.jpg"),
         // background color. You will see it before lazyloading or if placement is 'contain'
-        color: 'red',
+        color: "red",
         // object-fit css rule
-        placement: 'cover',
+        placement: "cover",
         // object-position css rule
-        position: 'center center',
+        position: "center center",
         // List of jpg files with their width
-        jpg: [{
-          source: require('./images/landscape_650.jpg'),
-          width: 650
-        }, {
-          source: require('./images/landscape_900.jpg'),
-          width: 900
-        }, {
-          source: require('./images/landscape_1400.jpg'),
-          width: 1400
-        }],
+        jpg: [
+          {
+            source: require("./images/landscape_650.jpg"),
+            width: 650
+          },
+          {
+            source: require("./images/landscape_900.jpg"),
+            width: 900
+          },
+          {
+            source: require("./images/landscape_1400.jpg"),
+            width: 1400
+          }
+        ],
         // List of jpg files with their width
         webp: null,
         // img src-set sizes attribute
-        sizes: '(min-width: 1200px) 75vw, 100vw',
+        sizes: "(min-width: 1200px) 75vw, 100vw",
         //
-        lazyload: 'intersection',
+        lazyload: "intersection",
         threshold: 0.75
       }
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="stylus">
-  html, body
-    margin 0
-    padding 0
+html, body
+  margin 0
+  padding 0
 </style>
 
 <style lang="stylus" scoped>
@@ -63,10 +65,9 @@ export default {
   height 500px
   margin-top 2000px
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1200px)
     display block
     margin 0 auto
     margin-top 2000px
     width 75vw
-  }
 </style>

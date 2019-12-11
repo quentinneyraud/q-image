@@ -2,26 +2,26 @@
   <div
     class="q-image"
     :class="{
-      loading: useLazyload,
-      loaded: !useLazyload
+      loading,
+      loaded
     }"
-    :style="{ backgroundColor: color }">
-
-    <picture
-      class="image"
-      ref="image">
+    :style="{ backgroundColor: color }"
+  >
+    <picture class="image" ref="image">
       <source
         v-if="jpg"
         type="image/jpg"
         :data-srcset="useLazyload && jpgSrcSet"
         :srcset="!useLazyload && jpgSrcSet"
-        :sizes="sizes">
+        :sizes="sizes"
+      />
       <source
         v-if="webp"
         type="image/webp"
         :data-srcset="useLazyload && webpSrcSet"
         :srcset="!useLazyload && webpSrcSet"
-        :sizes="sizes">
+        :sizes="sizes"
+      />
       <img
         ref="baseimage"
         :data-src="useLazyload && source"
@@ -30,7 +30,8 @@
         :style="{
           objectFit: placement,
           objectPosition: position
-        }">
+        }"
+      />
     </picture>
   </div>
 </template>
@@ -42,7 +43,7 @@ export default {
     alt: {
       type: String,
       required: true,
-      default: 'Image non disponible'
+      default: "Image non disponible"
     },
     source: {
       type: String,
@@ -62,31 +63,32 @@ export default {
     sizes: {
       type: String,
       required: false,
-      default: '100vw'
+      default: "100vw"
     },
     // style props
     placement: {
       type: String,
       required: false,
-      default: () => 'cover',
-      validator: (value) => ['contain', 'cover', 'none'].indexOf(value) > -1
+      default: () => "cover",
+      validator: value => ["contain", "cover", "none"].indexOf(value) > -1
     },
     position: {
       type: String,
       required: false,
-      default: () => 'center'
+      default: () => "center"
     },
     color: {
       type: String,
       required: false,
-      default: 'none'
+      default: "none"
     },
     // lazyload
     lazyload: {
       type: String,
       required: false,
-      default: 'none',
-      validator: (value) => ['none', 'direct', 'intersection', 'called'].indexOf(value) > -1
+      default: "none",
+      validator: value =>
+        ["none", "direct", "intersection", "called"].indexOf(value) > -1
     },
     threshold: {
       type: Number,
@@ -94,94 +96,105 @@ export default {
       default: 0.0
     }
   },
-  data () {
+  data() {
     return {
+      loading: false,
       loaded: false
-    }
+    };
   },
   computed: {
-    jpgSrcSet () {
-      if (!this.jpg) return ''
+    jpgSrcSet() {
+      if (!this.jpg) return "";
       return this.jpg
         .map(jpgSource => `${jpgSource.source} ${jpgSource.width}w`)
-        .join(', ')
+        .join(", ");
     },
-    webpSrcSet () {
-      if (!this.webp) return ''
+    webpSrcSet() {
+      if (!this.webp) return "";
       return this.webp
         .map(webpSource => `${webpSource.source} ${webpSource.width}w`)
-        .join(', ')
+        .join(", ");
     },
-    useLazyload () {
-      return this.lazyload !== 'none'
+    useLazyload() {
+      return this.lazyload !== "none";
     }
   },
-  mounted () {
-    if (this.lazyload === 'direct') {
-      this.lazyloadImage()
-    } else if (this.lazyload === 'intersection') {
-      this.setIntersectionObserver()
+  mounted() {
+    if (this.lazyload === "direct") {
+      this.lazyloadImage();
+    } else if (this.lazyload === "intersection") {
+      this.setIntersectionObserver();
     }
 
     if (this.$refs.baseimage.src && this.$refs.baseimage.complete) {
-      this.onLoaded()
+      this.onLoaded();
     } else {
-      this.$refs.baseimage.addEventListener('load', this.onLoaded)
+      this.$refs.baseimage.addEventListener("load", this.onLoaded);
     }
   },
   methods: {
-    lazyloadImage () {
-      Array.from(this.$refs.image.querySelectorAll('source'))
-        .forEach(source => {
-          source.srcset = source.dataset.srcset
-        })
-      this.$refs.baseimage.src = this.$refs.baseimage.dataset.src
+    lazyloadImage() {
+      this.loading = true;
+      Array.from(this.$refs.image.querySelectorAll("source")).forEach(
+        source => {
+          source.srcset = source.dataset.srcset;
+        }
+      );
+      this.$refs.baseimage.src = this.$refs.baseimage.dataset.src;
     },
-    onLoaded () {
-      this.$emit('loaded', this.$refs.image)
-      this.loaded = true
-      this.$el.classList.remove('loading')
+    onLoaded() {
+      this.$emit("loaded", this.$refs.image);
+      this.loaded = true;
+      this.loading = false;
     },
     // Intersection Observer
-    setIntersectionObserver () {
+    setIntersectionObserver() {
       if (!this.supportIntersectionObserver()) {
-        console.warn('IntersectionObserver not supported, loading image now')
-        this.lazyloadImage()
+        console.warn("IntersectionObserver not supported, loading image now");
+        this.lazyloadImage();
       }
 
-      let observer = new IntersectionObserver(intersections => {
-        if (intersections[0].isIntersecting) {
-          this.lazyloadImage()
+      let observer = new IntersectionObserver(
+        intersections => {
+          if (intersections[0].isIntersecting) {
+            this.lazyloadImage();
+            observer.unobserve(this.$el);
+          }
+        },
+        {
+          threshold: this.threshold
         }
-      }, {
-        threshold: this.threshold
-      })
+      );
 
-      observer.observe(this.$el)
+      observer.observe(this.$el);
     },
-    supportIntersectionObserver () {
-      return 'IntersectionObserver' in window && 'IntersectionObserverEntry' in window && 'intersectionRatio' in window.IntersectionObserverEntry.prototype
+    supportIntersectionObserver() {
+      return (
+        "IntersectionObserver" in window &&
+        "IntersectionObserverEntry" in window &&
+        "intersectionRatio" in window.IntersectionObserverEntry.prototype
+      );
     }
   }
-}
+};
 </script>
 
 <style scoped>
-  .q-image {
-    position: relative;
-    overflow: hidden;
-  }
+.q-image {
+  position: relative;
+  overflow: hidden;
+}
 
-  .image {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-  }
+.image {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
 
-  .image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    user-select: none;
-  }
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
 </style>
